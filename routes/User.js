@@ -6,6 +6,10 @@ router
     .get((req, res) => {
         res.send('GET user');     
     })
+    .post((req, res) => {
+        console.log(req.body);
+        res.send('ok')
+    })
 
 
 module.exports = router
