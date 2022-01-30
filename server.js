@@ -13,7 +13,9 @@ if(process.env.NODE_ENV == 'development'){
   hostname = 'localhost'
 }
 
-    
+server.on('listening', () => {
+  console.log(server.address().address, server.address().port);
+})
 server.listen(port, hostname,  () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(server.address().address, server.address().port, `Server running at http://${hostname}:${port}/`);
 });
