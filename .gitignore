@@ -6,3 +6,6 @@ jspm_packages/
 .env
 .env.test
 .env.production
+
+# 
+package-lock.json
