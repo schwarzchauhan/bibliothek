@@ -15,5 +15,23 @@ const userSchema = new Schema({
     }
 })
 
+// https://mongoosejs.com/docs/guide.html#statics
+// mongoose statics method 
+userSchema.statics.user_login = async function (data) {
+    try {
+        if(data.type == 'email'){
+            return this.findOne({email: data.unameEmail, password: data.password});
+        }
+        else if(data.type == 'username'){
+            return this.findOne({username: data.unameEmail, password: data.password});
+        }else {
+            throw new SyntaxError('Oops! Something fishy while login.');  
+         }        
+    } catch (err) {
+        console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
+        throw err;
+    }
+}
+
 const User = mongoose.model('User', userSchema);
 module.exports = User;

@@ -1,6 +1,8 @@
 const User = require('../models/user')
 
 
+
+// {"unameEmail":"harshchauhan0994@gmail.com","password":"kljs;ladfj","type":"email"}
 exports.user_register = async (req, res) => {
 
     try {
@@ -42,8 +44,18 @@ exports.user_login = async (req, res) => {
         if(!data.password){
             return res.json({type: 'knownError', message : 'Oops, password field is required !' });
         }
-        return res.send('implement login in User model');
+        const userData = await User.user_login(data);
+        console.table( userData);
+        if(!userData){
+            return res.status(401).json({type: 'knownError', message : 'Oops, Invalid Credentials !' });
+        }
+        return res.json(userData);
     }catch(err) {
-        console.error(err);
+        console.error('err', err);
+        if(err instanceof SyntaxError){
+            return res.status(422).json({type: 'knownError', message: err.message});
+        }else {
+            return res.status(404).json({type: 'knownError', message: 'Oops! Unexpected error while login.'});
+        }
     }
 } 
