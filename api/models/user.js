@@ -12,6 +12,9 @@ const userSchema = new Schema({
     }, 
     name: {
         type: String
+    }, 
+    username: {
+        type: String
     }
 })
 
@@ -28,6 +31,19 @@ userSchema.statics.user_login = async function (data) {
             throw new SyntaxError('Oops! Something fishy while login.');  
          }        
     } catch (err) {
+        console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
+        throw err;
+    }
+}
+
+userSchema.statics.getProfileInfo = async function (input) {
+    try {
+        console.error({username: input.username});
+        var profileData = await this.findOne({username: input.username}, {imgUrl: 1, name: 1, username: 1});
+        console.error("profileData  DB ", profileData);
+        return profileData;
+    } catch (err) {
+        console.error("err", err );
         console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
         throw err;
     }
