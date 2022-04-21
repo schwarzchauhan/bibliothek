@@ -59,3 +59,24 @@ exports.user_login = async (req, res) => {
         }
     }
 } 
+
+exports.getProfileInfo = async (req, res)=> {
+    try {
+        console.error("req.params ~~ ", req.params);
+        if(!req.params.username){
+            return res.status(404).json({type: 'knownError', message: 'Oops! Username is required.'});
+        }
+        console.error("/[a-z]/.test(req.params.username",  /[a-z]/.test(req.params.username));
+        if(!/[a-z]/.test(req.params.username)){ // to validate the username
+            return res.status(404).json({type: 'knownError', message: 'Oops! Username is invalid.'});
+        }
+        var input = {username: req.params.username};
+        var profileData = await User.getProfileInfo(input);
+        console.error("profileData", profileData);
+        return res.status(200).json(profileData);
+    } catch (error) {
+        console.error(error);
+        console.error("error while getting  profile data", input);
+        return res.status(404).json({type: 'knownError', message: 'Oops! Unexpected error occurred.'});
+    }
+}
