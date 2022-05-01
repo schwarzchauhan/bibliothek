@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const errorController = require('./api/controller/errorController')
 
 // db setup
 const mongoose = require('mongoose')
@@ -43,13 +44,18 @@ app.use(cors(corsOptions))
 // specify all routers here
 const userRoute = require('./api/routes/User')
 const registerRoute = require('./api/routes/Register')
+const someRoutes = require('./api/routes/Route')
 
 app.use('/api/user', userRoute)
 app.use('/api/register', registerRoute)
+app.use('/api', someRoutes)
 
 app.route('/')
     .get((req, res)=> {
         res.status(200).send('ok')
     });
+
+// middleware to handle api errors(operational error)
+app.use(errorController);
 
 module.exports = app;
