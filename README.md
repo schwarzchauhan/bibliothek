@@ -248,3 +248,11 @@ response -->
         }
     ]
 }
+## middleware used 
+- [https://github.com/richardgirges/express-fileupload#readme](express-fileupload)
+
+
+## API(app. pgmming. interface)
+
+`POST /api/mcq/save` : to save the mcq  \
+`POST /upload/img` : to upload img to cloud & save imgUrl in user collection   \
