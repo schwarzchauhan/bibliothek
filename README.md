@@ -39,3 +39,13 @@ output file path (default to $HOME/.pm2/logs/XXXout.log)
 
 docs
 - https://expressjs.com/en/4x/api.html#res.status
+
+
+## middleware used 
+- [https://github.com/richardgirges/express-fileupload#readme](express-fileupload)
+
+
+## API(app. pgmming. interface)
+
+`POST /api/mcq/save` : to save the mcq  \
+`POST /upload/img` : to upload img to cloud & save imgUrl in user collection   \

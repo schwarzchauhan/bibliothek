@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const fileUpload = require('express-fileupload');
 const errorController = require('./api/controller/errorController')
 
 // db setup
@@ -39,7 +40,9 @@ const corsOptions = {
 };
 // console.log(corsOptions);
 app.use(cors(corsOptions))
-
+// express-fileupload 
+app.use(fileUpload())
+// options -- { useTempFiles : true,tempFileDir : '/tmp/' }
 
 // specify all routers here
 const userRoute = require('./api/routes/User')
