@@ -7,4 +7,9 @@ router
     .route('/mcq/save')
     .post(mcqController.saveMcq)
 
+router
+    .route('/quiz/:lang/:noOfMcqs')
+    .get(mcqController.randomMcqs)
+
+
 module.exports = router;
