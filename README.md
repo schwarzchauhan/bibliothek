@@ -39,3 +39,8 @@ output file path (default to $HOME/.pm2/logs/XXXout.log)
 
 docs
 - https://expressjs.com/en/4x/api.html#res.status
+
+
+## routes 
+
+`GET /quiz/:lang/:noOfMcqs` - get random mcq for quiz
