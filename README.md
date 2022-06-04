@@ -44,3 +44,46 @@ docs
 ## routes 
 
 `GET /quiz/:lang/:noOfMcqs` - get random mcq for quiz
+`POST /quiz/submit` - to submit mcq choies selected in the quiz
+[
+    {
+        "_id": "628459825e36d0e7f632781a",
+        "ans": "main"
+    },
+    {
+        "_id": "628455b75e36d0e7f632766d",
+        "ans": "main"
+    },
+    {
+        "_id": "628459765e36d0e7f63277e4",
+        "ans": "wesser"
+    },
+    {
+        "_id": "628459675e36d0e7f632779c",
+        "ans": "elbe"
+    },
+    {
+        "_id": "627b22a775fbda8f299fd131",
+        "ans": "rhein"
+    },
+    {
+        "_id": "62844af9bccc2c4df9bd4809",
+        "ans": "wesser"
+    },
+    {
+        "_id": "628459885e36d0e7f6327838",
+        "ans": "elbe"
+    },
+    {
+        "_id": "628455cf5e36d0e7f63276e8",
+        "ans": "rhein"
+    },
+    {
+        "_id": "628451b85e36d0e7f632762e",
+        "ans": "main"
+    },
+    {
+        "_id": "6284597f5e36d0e7f632780e",
+        "ans": "wesser"
+    }
+]
