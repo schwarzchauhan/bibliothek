@@ -41,49 +41,192 @@ docs
 - https://expressjs.com/en/4x/api.html#res.status
 
 
+## dependencies 
+npm install express-handlebars --save
+<https://stackoverflow.com/questions/69959820/typeerror-exphbs-is-not-a-function>  \
+iterate over array of object <https://stackoverflow.com/questions/22696886/how-to-iterate-over-array-of-objects-in-handlebars>  \
+
+
+
 ## routes 
 
 `GET /quiz/:lang/:noOfMcqs` - get random mcq for quiz
 `POST /quiz/submit` - to submit mcq choies selected in the quiz
 [
     {
-        "_id": "628459825e36d0e7f632781a",
-        "ans": "main"
+        "_id": "628455c95e36d0e7f63276c7",
+        "ansGiven": ""
     },
     {
-        "_id": "628455b75e36d0e7f632766d",
-        "ans": "main"
+        "_id": "628459815e36d0e7f6327814",
+        "ansGiven": ""
     },
     {
-        "_id": "628459765e36d0e7f63277e4",
-        "ans": "wesser"
-    },
-    {
-        "_id": "628459675e36d0e7f632779c",
-        "ans": "elbe"
-    },
-    {
-        "_id": "627b22a775fbda8f299fd131",
-        "ans": "rhein"
+        "_id": "628455bd5e36d0e7f632768b",
+        "ansGiven": ""
     },
     {
         "_id": "62844af9bccc2c4df9bd4809",
-        "ans": "wesser"
+        "ansGiven": "main"
     },
     {
-        "_id": "628459885e36d0e7f6327838",
-        "ans": "elbe"
+        "_id": "6284595a5e36d0e7f6327760",
+        "ansGiven": "elbe"
     },
     {
-        "_id": "628455cf5e36d0e7f63276e8",
-        "ans": "rhein"
+        "_id": "628455b95e36d0e7f6327679",
+        "ansGiven": "rhein"
     },
     {
-        "_id": "628451b85e36d0e7f632762e",
-        "ans": "main"
+        "_id": "628459515e36d0e7f6327736",
+        "ansGiven": "main"
     },
     {
-        "_id": "6284597f5e36d0e7f632780e",
-        "ans": "wesser"
+        "_id": "628455d05e36d0e7f63276ee",
+        "ansGiven": "wesser"
+    },
+    {
+        "_id": "62778091b8bdfc30c073393f",
+        "ansGiven": "wesser"
+    },
+    {
+        "_id": "628459895e36d0e7f632783e",
+        "ansGiven": "wesser"
     }
 ]
+response -->
+{
+    "score": "3/10",
+    "mcqs": [
+        {
+            "_id": "628455c95e36d0e7f63276c7",
+            "quesn": "testques1652839880856",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "",
+            "isCorrect": false
+        },
+        {
+            "_id": "628459815e36d0e7f6327814",
+            "quesn": "testques1652840832739",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "",
+            "isCorrect": false
+        },
+        {
+            "_id": "628455bd5e36d0e7f632768b",
+            "quesn": "testques1652839868810",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "",
+            "isCorrect": false
+        },
+        {
+            "_id": "62844af9bccc2c4df9bd4809",
+            "quesn": "testques1652837113023",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "main",
+            "isCorrect": false
+        },
+        {
+            "_id": "6284595a5e36d0e7f6327760",
+            "quesn": "testques1652840793973",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "elbe",
+            "isCorrect": false
+        },
+        {
+            "_id": "628455b95e36d0e7f6327679",
+            "quesn": "testques1652839865203",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "rhein",
+            "isCorrect": false
+        },
+        {
+            "_id": "628459515e36d0e7f6327736",
+            "quesn": "testques1652840785683",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "main",
+            "isCorrect": false
+        },
+        {
+            "_id": "628455d05e36d0e7f63276ee",
+            "quesn": "testques1652839888593",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "wesser",
+            "isCorrect": true
+        },
+        {
+            "_id": "62778091b8bdfc30c073393f",
+            "quesn": "testques1651998864651",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "wesser",
+            "isCorrect": true
+        },
+        {
+            "_id": "628459895e36d0e7f632783e",
+            "quesn": "testques1652840841005",
+            "choices": [
+                "elbe",
+                "rhein",
+                "main",
+                "wesser"
+            ],
+            "ans": "wesser",
+            "ansGiven": "wesser",
+            "isCorrect": true
+        }
+    ]
+}

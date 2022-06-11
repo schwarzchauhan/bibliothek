@@ -52,21 +52,26 @@ exports.submitMcqQuiz  = async (req, res, next) => {
         const mcqIds = quesWithAnsGiven.map( (ele) => ele._id ) // array of mcq ids
         console.error('mcqIds',mcqIds);
         const  mcqs = await Mcq.find({_id: {$in: mcqIds}}); // order of mcq in array is not same as that mcq sent in request
-        const response = mcqs.map((mcq, i) => {
-            var foundMcq = quesWithAnsGiven.find( ele => ele._id == mcq._id.toString());
+        const response = quesWithAnsGiven.map((mcq, i) => {
+            var foundMcq = mcqs.find( ele => ele._id.toString() == mcq._id);
             return {
-                _id: mcq._id,
-                quesn:  mcq.quesn,
-                choices: mcq.choices, 
-                ans: mcq.ans,
-                ansGiven: foundMcq.ansGiven,
-                isCorrect: (mcq.ans == foundMcq.ansGiven)
+                _id: foundMcq._id,
+                quesn:  foundMcq.quesn,
+                choices: foundMcq.choices, 
+                ans: foundMcq.ans,
+                ansGiven: mcq.ansGiven,
+                isCorrect: (foundMcq.ans == mcq.ansGiven)
             } 
         })
-        console.error(response.length);
+        var correctAns = 0;
+        response.forEach((ele) =>{ 
+            if(ele.isCorrect)
+                correctAns++;
+        })
+        console.error(correctAns, response.length);
 
-        return res.status(200).json(response)
-
+        // return res.status(200).json({ score: `${correctAns}/${response.length}`, mcqs: response})
+        return res.render('home', {score: `${correctAns}/${response.length}`, mcqs: response})
         // https://javascript.plainenglish.io/most-efficient-ways-for-building-pdfs-files-with-backend-and-frontend-javascript-environment-68056f73257
         // https://www.npmjs.com/package/chrome-aws-lambda
         // https://www.tabnine.com/code/javascript/functions/puppeteer/Page/setContent
