@@ -23,6 +23,17 @@ exports.user_register = async (req, res, next) => {
         if(u){
             throw new KnownError(`User Already Exist. Please Login`, 400, "userController user_register");        
         }else {
+            //Encrypt user password
+            // https://www.npmjs.com/package/bcryptjs#hashs-salt-callback-progresscallback
+            // https://www.loginradius.com/blog/engineering/hashing-user-passwords-using-bcryptjs/
+            var salt = await bcrypt.genSalt(10);
+            var encryptedPassword = await bcrypt.hash(password, salt);
+            const newUser = {
+                email: email,
+                password: encryptedPassword
+            };
+            const user = await User.create(newUser)
+            console.error(user);
             return res.send('let us store the user email and password')
         }
 
