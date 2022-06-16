@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
+const exphbs = require('express-handlebars')
 const errorController = require('./api/controller/errorController')
 
 // db setup
@@ -28,6 +29,21 @@ mongoose.connect(
 if(process.env.NODE_ENV == 'development'){
     app.use(morgan(':date[clf] :method :url :status :response-time ms'))
 }
+
+//Here you can pass helpers that you would normally define in registerHelpers
+//and you can also define stuff like `defaultLayout` and `partialsDir`
+var hbs = exphbs.create({
+    helpers: {
+        sayHello: function () { alert("Hello World") },
+        inc: function(value, options){
+            return parseInt(value) + 1;
+        }
+    },
+    defaultLayout: 'main',
+    extname: '.hbs'
+});
+app.engine('hbs', hbs.engine)
+app.set('view engine', 'hbs')
 
 // to handle post request
 app.use(express.json())
