@@ -1,29 +1,33 @@
 const User = require('../models/user')
+var bcrypt = require('bcryptjs')
+const KnownError = require('../utils/knownError')
 
 
 
 // {"unameEmail":"harshchauhan0994@gmail.com","password":"kljs;ladfj","type":"email"}
-exports.user_register = async (req, res) => {
+exports.user_register = async (req, res, next) => {
 
     try {
         // console.error('req.body', req.body);
-        const email = req.body.email;
-        const password = req.body.password;
+        const { email, password } = req.body;
         // console.error(email, password);
     
+        // check for mandatory field
+        if(!(email && password)){
+            throw new KnownError("Credentials missing", 400, "userController user_register");
+        }
+        
         const u = await User.findOne({email : email});   
         // console.error(u);         
         
         if(u){
-            console.error(u);         
-            return res.send('user with this mail already exists -- '+u.name)
+            throw new KnownError(`User Already Exist. Please Login`, 400, "userController user_register");        
         }else {
             return res.send('let us store the user email and password')
         }
 
     } catch (err) {
-        console.error(err);
-        return res.send(err);
+        next(err);
     }
 
 }

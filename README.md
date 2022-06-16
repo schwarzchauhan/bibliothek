@@ -27,6 +27,14 @@ output file path (default to $HOME/.pm2/logs/XXXout.log)
 > $ pm2 -v
 > 5.1.2
 
+## process in windows 
+<https://stackoverflow.com/questions/39632667/how-do-i-kill-the-process-currently-using-a-port-on-localhost-in-windows>  \
+
+```
+netstat -ano | findstr :<PORT>  
+taskkill /PID <PID> /F
+```
+
 
 ## resource 
 
