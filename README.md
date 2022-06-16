@@ -27,6 +27,14 @@ output file path (default to $HOME/.pm2/logs/XXXout.log)
 > $ pm2 -v
 > 5.1.2
 
+## process in windows 
+<https://stackoverflow.com/questions/39632667/how-do-i-kill-the-process-currently-using-a-port-on-localhost-in-windows>  \
+
+```
+netstat -ano | findstr :<PORT>  
+taskkill /PID <PID> /F
+```
+
 
 ## resource 
 
@@ -34,6 +42,8 @@ output file path (default to $HOME/.pm2/logs/XXXout.log)
 - [extract, unzip a .7z file](https://answers.microsoft.com/en-us/windows/forum/all/unable-to-install-7z-file/bd244e05-50c7-4420-936d-4a56d0375177)
 
 
+object destructuing  
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#object_destructuring>  \
 
 ## express
 
@@ -50,6 +60,9 @@ iterate over array of object <https://stackoverflow.com/questions/22696886/how-t
 https://getbootstrap.com/docs/5.0/content/tables/
 
 
+
+## debugging 
+<https://nodejs.org/en/docs/guides/debugging-getting-started/>  \
 
 
 

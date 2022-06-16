@@ -1,10 +1,13 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+var bcrypt = require('bcryptjs')
+var jwt = require('jsonwebtoken')
 
 const userSchema = new Schema({
     email : {
         type: String, 
-        required: [true, 'provide email']
+        required: [true, 'provide email'],
+        unique: true // `email` must be unique
     }, 
     password : {
         type : String,
@@ -15,23 +18,31 @@ const userSchema = new Schema({
     }, 
     username: {
         type: String
-    }
+    }, 
+    token : { type: String }
 })
 
 // https://mongoosejs.com/docs/guide.html#statics
 // mongoose statics method 
 userSchema.statics.user_login = async function (data) {
     try {
+        var user;
         if(data.type == 'email'){
-            return this.findOne({email: data.unameEmail, password: data.password});
-        }
-        else if(data.type == 'username'){
-            return this.findOne({username: data.unameEmail, password: data.password});
+            user = await this.findOne({email: data.unameEmail});
+        }else if(data.type == 'username'){
+            user = await this.findOne({username: data.unameEmail});
         }else {
             throw new SyntaxError('Oops! Something fishy while login.');  
-         }        
+        }   
+
+        if (user && (await bcrypt.compare(data.password, user.password))){
+            var token = jwt.sign({userId: user._id.toString()}, process.env.authKey)
+            user.token=token;
+            return userFilter(user)
+        }else {
+            return null;
+        }
     } catch (err) {
-        console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
         throw err;
     }
 }
@@ -47,6 +58,11 @@ userSchema.statics.getProfileInfo = async function (input) {
         console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
         throw err;
     }
+}
+
+var userFilter = (userObj) => {
+    var {email, _id, token} = userObj;
+    return {email, _id, token};
 }
 
 const User = mongoose.model('User', userSchema);
