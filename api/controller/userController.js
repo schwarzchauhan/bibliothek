@@ -43,35 +43,25 @@ exports.user_register = async (req, res, next) => {
 
 }
 
-exports.user_login = async (req, res) => {
+exports.user_login = async (req, res, next) => {
     try {
         // console.log(req);
-        const data = req.body;
+        const { type, unameEmail, password } = req.body;
         // console.log(data);
         // const data = req.body;
         // console.log(data);
-        if(!data.type){
-            return res.status(400).json({message:  'Oops! Login request is malformed. !'});
+
+        if(!(type && unameEmail && password)){
+            throw new KnownError(`Credentials Missing`, 400, "userController user_login")
         }
-        if(!data.unameEmail){
-            return res.json({type: 'knownError', message : 'Oops, Email or username is required !' });
-        }
-        if(!data.password){
-            return res.json({type: 'knownError', message : 'Oops, password field is required !' });
-        }
-        const userData = await User.user_login(data);
-        console.table( userData);
+        var obj = {unameEmail: req.body.unameEmail, password:req.body.password, type: req.body.type}
+        const userData = await User.user_login(obj);
         if(!userData){
-            return res.status(401).json({type: 'knownError', message : 'Oops, Invalid Credentials !' });
+            throw new KnownError(`Oops, Invalid Credentials !`, 401, "userController user_login")
         }
         return res.json(userData);
     }catch(err) {
-        console.error('err', err);
-        if(err instanceof SyntaxError){
-            return res.status(422).json({type: 'knownError', message: err.message});
-        }else {
-            return res.status(404).json({type: 'knownError', message: 'Oops! Unexpected error while login.'});
-        }
+        next(err)
     }
 } 
 

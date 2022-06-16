@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+var bcrypt = require('bcryptjs')
 
 const userSchema = new Schema({
     email : {
@@ -23,16 +24,21 @@ const userSchema = new Schema({
 // mongoose statics method 
 userSchema.statics.user_login = async function (data) {
     try {
+        var user;
         if(data.type == 'email'){
-            return this.findOne({email: data.unameEmail, password: data.password});
-        }
-        else if(data.type == 'username'){
-            return this.findOne({username: data.unameEmail, password: data.password});
+            user = await this.findOne({email: data.unameEmail});
+        }else if(data.type == 'username'){
+            user = await this.findOne({username: data.unameEmail});
         }else {
             throw new SyntaxError('Oops! Something fishy while login.');  
-         }        
+        }   
+
+        if (user && (await bcrypt.compare(data.password, user.password))){
+            return user;
+        }else {
+            return null;
+        }
     } catch (err) {
-        console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
         throw err;
     }
 }
