@@ -17,6 +17,10 @@ router
     .post(userController.user_login)
 
 router
+    .route('/register')
+    .post(userController.user_register)
+
+router
     .route('/dashboard/:username')
     .get(userController.getProfileInfo)
 

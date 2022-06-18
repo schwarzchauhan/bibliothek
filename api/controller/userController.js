@@ -33,8 +33,7 @@ exports.user_register = async (req, res, next) => {
                 password: encryptedPassword
             };
             const user = await User.create(newUser)
-            console.error(user);
-            return res.send('let us store the user email and password')
+            return res.json(user)
         }
 
     } catch (err) {
