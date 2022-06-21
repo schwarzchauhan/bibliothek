@@ -59,6 +59,9 @@ https://getbootstrap.com/docs/5.0/content/tables/
 
 
 
+## debugging 
+<https://nodejs.org/en/docs/guides/debugging-getting-started/>  \
+
 
 
 ## routes 

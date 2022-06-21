@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 var bcrypt = require('bcryptjs')
+var jwt = require('jsonwebtoken')
 
 const userSchema = new Schema({
     email : {
@@ -34,7 +35,9 @@ userSchema.statics.user_login = async function (data) {
         }   
 
         if (user && (await bcrypt.compare(data.password, user.password))){
-            return user;
+            var token = jwt.sign({userId: user._id.toString()}, process.env.authKey)
+            user.token=token;
+            return user
         }else {
             return null;
         }
