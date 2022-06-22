@@ -58,7 +58,7 @@ exports.user_login = async (req, res, next) => {
         if(!userData){
             throw new KnownError(`Oops, Invalid Credentials !`, 401, "userController user_login")
         }
-        return res.json({userId: userData._id, token: userData.token});
+        return res.json(userData);
     }catch(err) {
         next(err)
     }

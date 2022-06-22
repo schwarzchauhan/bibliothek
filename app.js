@@ -60,9 +60,10 @@ app.use(cors(corsOptions))
 // specify all routers here
 const userRoute = require('./api/routes/User')
 const someRoutes = require('./api/routes/Route')
+const auth = require('./api/middleware/auth')
 
-app.use('/api/user', userRoute)
-app.use('/api', someRoutes)
+app.use('/api/user', auth, userRoute)
+app.use('/api', auth, someRoutes)
 
 app.route('/')
     .get((req, res)=> {

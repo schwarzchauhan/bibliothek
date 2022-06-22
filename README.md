@@ -42,6 +42,8 @@ taskkill /PID <PID> /F
 - [extract, unzip a .7z file](https://answers.microsoft.com/en-us/windows/forum/all/unable-to-install-7z-file/bd244e05-50c7-4420-936d-4a56d0375177)
 
 
+object destructuing  
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#object_destructuring>  \
 
 ## express
 

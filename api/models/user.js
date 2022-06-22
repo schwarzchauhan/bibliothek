@@ -18,7 +18,8 @@ const userSchema = new Schema({
     }, 
     username: {
         type: String
-    }
+    }, 
+    token : { type: String }
 })
 
 // https://mongoosejs.com/docs/guide.html#statics
@@ -37,7 +38,7 @@ userSchema.statics.user_login = async function (data) {
         if (user && (await bcrypt.compare(data.password, user.password))){
             var token = jwt.sign({userId: user._id.toString()}, process.env.authKey)
             user.token=token;
-            return user
+            return userFilter(user)
         }else {
             return null;
         }
@@ -57,6 +58,11 @@ userSchema.statics.getProfileInfo = async function (input) {
         console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
         throw err;
     }
+}
+
+var userFilter = (userObj) => {
+    var {email, _id, token} = userObj;
+    return {email, _id, token};
 }
 
 const User = mongoose.model('User', userSchema);
