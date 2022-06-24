@@ -16,6 +16,8 @@ const verifyToken = async (req, res, next) => {
         console.error(err);
         if( err.constructor.name == 'JsonWebTokenError' && err.message == 'invalid signature' ) {
             next(new KnownError("Authentication token expired, Login Again!!", 401, "middleware auth"));
+        } else if ( err.constructor.name == 'JsonWebTokenError' && err.message == 'jwt malformed' ) {
+            next(new KnownError("Authentication token required, Login Again!!", 401, "middleware auth"));
         } else {
             next(err)
         }
