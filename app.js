@@ -59,12 +59,14 @@ app.use(cors(corsOptions))
 
 // specify all routers here
 const userRoute = require('./api/routes/User')
-const registerRoute = require('./api/routes/Register')
 const someRoutes = require('./api/routes/Route')
+const routeWithoutAuth = require('./api/routes/RouteWithoutAuth')
+const auth = require('./api/middleware/auth')
 
-app.use('/api/user', userRoute)
-app.use('/api/register', registerRoute)
-app.use('/api', someRoutes)
+
+app.use('/api', routeWithoutAuth)
+app.use('/api/user', auth, userRoute)
+app.use('/api', auth, someRoutes)
 
 app.route('/')
     .get((req, res)=> {

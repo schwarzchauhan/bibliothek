@@ -13,10 +13,6 @@ router
     })
 
 router
-    .route('/login')
-    .post(userController.user_login)
-
-router
     .route('/dashboard/:username')
     .get(userController.getProfileInfo)
 
