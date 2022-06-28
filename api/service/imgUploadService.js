@@ -29,7 +29,7 @@ exports.imgUpload = async (imgName) => {
         console.error('options',options);
         const response = await imgbbUploader(options)
         console.error('response', response);
-        return response.data.url;
+        return response.url;
     } catch (err) {
         console.error('Error occured while uploading file to cloud', err);
         throw err;
