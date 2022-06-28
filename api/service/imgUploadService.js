@@ -12,7 +12,7 @@ exports.imgUpload = async (imgName) => {
         const options = {
             apiKey: process.env.IMG_UPLOAD_API_KEY, // MANDATORY
           
-            imagePath: `/assets/dpImgs/berlin.jpg`, // OPTIONAL: pass a local file (max 32Mb)
+            // imagePath: `/assets/dpImgs/berlin.jpg`, // OPTIONAL: pass a local file (max 32Mb)
           
             // name: "yourCustomFilename", // OPTIONAL: pass a custom filename to imgBB API
           
@@ -21,7 +21,7 @@ exports.imgUpload = async (imgName) => {
             It must be in the 60-15552000 range.
             Enable this to force your image to be deleted after that time. */
           
-            // imageUrl: "https://placekitten.com/500/500", // OPTIONAL: pass an URL to imgBB (max 32Mb)
+            imageUrl: `${process.env.BACKEND_HOST}/assets/dpImgs/${imgName}`, // OPTIONAL: pass an URL to imgBB (max 32Mb)
           
             // base64string:"iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNcLVNbzwAEjDAGACcSA4kB6ARiAAAAAElFTkSuQmCC",
             // OPTIONAL: pass base64-encoded image (max 32Mb)
