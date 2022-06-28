@@ -46,6 +46,8 @@ var hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 
+app.use(express.static('public'))
+
 // to handle post request
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))

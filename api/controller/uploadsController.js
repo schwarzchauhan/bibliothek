@@ -16,8 +16,9 @@ exports.imgUpload = async (req, res, next) => {
         // A function to move the file elsewhere on your server. Can take a callback or return a promise
         // error(if occurs) is catched by catch block
         await image.mv(uploadPath);
+        console.error('after image.mv');
 
-        const imgUrl = await imgUploadService.imgUpload(uploadPath);
+        const imgUrl = await imgUploadService.imgUpload(image.name);
         console.error(imgUrl);
         return res.send(imgUrl);
     } catch (err) {

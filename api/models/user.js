@@ -61,8 +61,8 @@ userSchema.statics.getProfileInfo = async function (input) {
 }
 
 var userFilter = (userObj) => {
-    var {email, _id, token} = userObj;
-    return {email, _id, token};
+    var {email, _id, token, username} = userObj;
+    return {email, _id, token, username};
 }
 
 const User = mongoose.model('User', userSchema);

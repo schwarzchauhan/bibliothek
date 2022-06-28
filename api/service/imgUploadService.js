@@ -1,30 +1,35 @@
 const fs = require('fs');
 const FormData = require('form-data');
 const axios = require('axios');
+const imgbbUploader = require("imgbb-uploader");
 
 
 // imgPath : path where img is temporarily stored in server
 // service to upload image(stored currently at uploadPath) to the cloud & get its web url
-exports.imgUpload = async (imgPath) => {
+exports.imgUpload = async (imgName) => {
     try {
-        var data = new FormData();
-        data.append('image', fs.createReadStream(imgPath));
-        
-        var config = {
-            method: 'post',
-            url: `https://api.imgbb.com/1/upload?key=${process.env.IMG_UPLOAD_API_KEY}`,
-            headers: { 
-                ...data.getHeaders()
-            },
-            data : data
+        console.error('imgName', imgName);
+        const options = {
+            apiKey: process.env.IMG_UPLOAD_API_KEY, // MANDATORY
+          
+            imagePath: `/assets/dpImgs/berlin.jpg`, // OPTIONAL: pass a local file (max 32Mb)
+          
+            // name: "yourCustomFilename", // OPTIONAL: pass a custom filename to imgBB API
+          
+            // expiration: 3600
+            /* OPTIONAL: pass a numeric value in seconds.
+            It must be in the 60-15552000 range.
+            Enable this to force your image to be deleted after that time. */
+          
+            // imageUrl: "https://placekitten.com/500/500", // OPTIONAL: pass an URL to imgBB (max 32Mb)
+          
+            // base64string:"iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAEklEQVR42mNcLVNbzwAEjDAGACcSA4kB6ARiAAAAAElFTkSuQmCC",
+            // OPTIONAL: pass base64-encoded image (max 32Mb)
         };
-    
-        // TODO : safety check for valid url/undefined case
-        // upload img to api.imgbb.com & get web url for image
-        const response = await axios(config);
-        const imgData = response.data;
-        console.error('File successfully uploaded to the cloud', imgData.data, imgData.data.url);
-        return imgData.data.url;
+        console.error('options',options);
+        const response = await imgbbUploader(options)
+        console.error('response', response);
+        return response.data.url;
     } catch (err) {
         console.error('Error occured while uploading file to cloud', err);
         throw err;

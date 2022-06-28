@@ -56,6 +56,11 @@ npm install express-handlebars --save
 <https://stackoverflow.com/questions/69959820/typeerror-exphbs-is-not-a-function>  \
 iterate over array of object <https://stackoverflow.com/questions/22696886/how-to-iterate-over-array-of-objects-in-handlebars>  \
 <https://stackoverflow.com/questions/33979051/typeerror-handlebars-registerhelper-is-not-a-function>  \
+
+### imgbb api to upload the img to cloud & get the url
+<https://stackoverflow.com/questions/62733308/how-to-use-imgbb-api-with-axios-in-react>  \
+
+
 ### css
 https://getbootstrap.com/docs/5.0/content/tables/
 
