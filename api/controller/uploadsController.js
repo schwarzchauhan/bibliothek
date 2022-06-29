@@ -1,12 +1,20 @@
 const path = require('path');
 const fs = require('fs');
+const User = require('../models/user')
 const imgUploadService = require('../service/imgUploadService')
+const KnownError = require('../utils/knownError')
+
 
 exports.imgUpload = async (req, res, next) => {
     try {
-        console.error(req.files.image);
          // The name of the input field (i.e. "image") is used to retrieve the uploaded file
+        if(!req.files) {
+            throw new KnownError("Image required", 422, "uploadsController imgUpload");
+        }
         const { image } =  req.files ; 
+        if(!image) {
+            throw new KnownError("Image required", 422, "uploadsController imgUpload");
+        }
 
         // handle here image is undefined
 
@@ -20,6 +28,7 @@ exports.imgUpload = async (req, res, next) => {
 
         const imgUrl = await imgUploadService.imgUpload(image.name);
         console.error(imgUrl);
+        await User.updateAField(req.user.userId, 'imgUrl', imgUrl)
         return res.send(imgUrl);
     } catch (err) {
         // TODO :

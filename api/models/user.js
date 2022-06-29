@@ -19,6 +19,9 @@ const userSchema = new Schema({
     username: {
         type: String
     }, 
+    imgUrl:  {
+        type: String
+    },
     token : { type: String }
 })
 
@@ -53,6 +56,21 @@ userSchema.statics.getProfileInfo = async function (input) {
         var profileData = await this.findOne({username: input.username}, {imgUrl: 1, name: 1, username: 1});
         console.error("profileData  DB ", profileData);
         return profileData;
+    } catch (err) {
+        console.error("err", err );
+        console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
+        throw err;
+    }
+}
+
+userSchema.statics.updateAField = async function (docId, key, value) {
+    try {
+        console.error({_id: docId}, {key: value});
+        const updatedDoc = await User.updateOne({_id: docId}, {key: value});
+        console.error('updatedDoc', updatedDoc);
+        var afterUpdate = await this.findOne({_id: docId});
+        console.error("afterUpdate", afterUpdate);
+        return afterUpdate;
     } catch (err) {
         console.error("err", err );
         console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
