@@ -65,8 +65,10 @@ userSchema.statics.getProfileInfo = async function (input) {
 
 userSchema.statics.updateAField = async function (docId, key, value) {
     try {
-        console.error({_id: docId}, {key: value});
-        const updatedDoc = await User.updateOne({_id: docId}, {key: value});
+        var updateFieldObj = {}
+        updateFieldObj[key]=value;
+        console.error({_id: docId}, updateFieldObj);
+        const updatedDoc = await User.updateOne({_id: docId}, {$set: updateFieldObj});
         console.error('updatedDoc', updatedDoc);
         var afterUpdate = await this.findOne({_id: docId});
         console.error("afterUpdate", afterUpdate);
