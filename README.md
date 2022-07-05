@@ -57,6 +57,17 @@ npm install express-handlebars --save
 iterate over array of object <https://stackoverflow.com/questions/22696886/how-to-iterate-over-array-of-objects-in-handlebars>  \
 <https://stackoverflow.com/questions/33979051/typeerror-handlebars-registerhelper-is-not-a-function>  \
 
+## scripts
+to run scripts in scripts folder 
+replace `<password>` by your mongodb password 
+replace `username` by your mongodb username
+replace `myFirstDatabase` by your database name
+
+
+then to run script 
+`python script.js`
+> Python 3.7.6
+
 ### imgbb api to upload the img to cloud & get the url
 <https://stackoverflow.com/questions/62733308/how-to-use-imgbb-api-with-axios-in-react>  \
 
