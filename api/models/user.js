@@ -19,6 +19,9 @@ const userSchema = new Schema({
     username: {
         type: String
     }, 
+    imgUrl:  {
+        type: String
+    },
     token : { type: String }
 })
 
@@ -60,9 +63,26 @@ userSchema.statics.getProfileInfo = async function (input) {
     }
 }
 
+userSchema.statics.updateAField = async function (docId, key, value) {
+    try {
+        var updateFieldObj = {}
+        updateFieldObj[key]=value;
+        console.error({_id: docId}, updateFieldObj);
+        const updatedDoc = await User.updateOne({_id: docId}, {$set: updateFieldObj});
+        console.error('updatedDoc', updatedDoc);
+        var afterUpdate = await this.findOne({_id: docId});
+        console.error("afterUpdate", afterUpdate);
+        return afterUpdate;
+    } catch (err) {
+        console.error("err", err );
+        console.error(err instanceof SyntaxError, err.message, err.name, err.stack);
+        throw err;
+    }
+}
+
 var userFilter = (userObj) => {
-    var {email, _id, token} = userObj;
-    return {email, _id, token};
+    var {email, _id, token, username} = userObj;
+    return {email, _id, token, username};
 }
 
 const User = mongoose.model('User', userSchema);

@@ -4,6 +4,7 @@ const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
+const fileUpload = require('express-fileupload');
 const errorController = require('./api/controller/errorController')
 
 // db setup
@@ -45,6 +46,8 @@ var hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 
+app.use(express.static('public'))
+
 // to handle post request
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
@@ -55,7 +58,9 @@ const corsOptions = {
 };
 // console.log(corsOptions);
 app.use(cors(corsOptions))
-
+// express-fileupload 
+app.use(fileUpload())
+// options -- { useTempFiles : true,tempFileDir : '/tmp/' }
 
 // specify all routers here
 const userRoute = require('./api/routes/User')
