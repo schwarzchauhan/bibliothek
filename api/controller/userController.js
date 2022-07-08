@@ -9,7 +9,7 @@ exports.user_register = async (req, res, next) => {
 
     try {
         // console.error('req.body', req.body);
-        const { email, password } = req.body;
+        const { email, password, name, username } = req.body;
         // console.error(email, password);
     
         // check for mandatory field
@@ -20,21 +20,23 @@ exports.user_register = async (req, res, next) => {
         const u = await User.findOne({email : email});   
         // console.error(u);         
         
-        if(u){
+        if(u) {
             throw new KnownError(`User Already Exist. Please Login`, 400, "userController user_register");        
-        }else {
-            //Encrypt user password
-            // https://www.npmjs.com/package/bcryptjs#hashs-salt-callback-progresscallback
-            // https://www.loginradius.com/blog/engineering/hashing-user-passwords-using-bcryptjs/
-            var salt = await bcrypt.genSalt(10);
-            var encryptedPassword = await bcrypt.hash(password, salt);
-            const newUser = {
-                email: email,
-                password: encryptedPassword
-            };
-            const user = await User.create(newUser)
-            return res.json(user)
         }
+
+        //Encrypt user password
+        // https://www.npmjs.com/package/bcryptjs#hashs-salt-callback-progresscallback
+        // https://www.loginradius.com/blog/engineering/hashing-user-passwords-using-bcryptjs/
+        var salt = await bcrypt.genSalt(10);
+        var encryptedPassword = await bcrypt.hash(password, salt);
+        const newUser = {
+            email,
+            password: encryptedPassword, 
+            name,
+            username
+        };
+        const user = await User.create(newUser)
+        return res.json(user)
 
     } catch (err) {
         next(err);

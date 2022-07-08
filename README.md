@@ -270,5 +270,6 @@ response -->
 
 ## API(app. pgmming. interface)
 
+`POST user/register`
 `POST /api/mcq/save` : to save the mcq  \
 `POST /upload/img` : to upload img to cloud & save imgUrl in user collection   \
