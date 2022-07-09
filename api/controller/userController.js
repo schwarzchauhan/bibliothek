@@ -17,7 +17,7 @@ exports.user_register = async (req, res, next) => {
             throw new KnownError("Credentials missing", 400, "userController user_register");
         }
         
-        const u = await User.findOne({email : email});   
+        const u = await User.findOne({ $or: [{ username: username }, { email: email }] });
         // console.error(u);         
         
         if(u) {
