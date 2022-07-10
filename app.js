@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const fileUpload = require('express-fileupload');
 const errorController = require('./api/controller/errorController')
+const Nodemailer = require('./api/service/Nodemailer')
 
 // db setup
 const mongoose = require('mongoose')
@@ -61,6 +62,10 @@ app.use(cors(corsOptions))
 // express-fileupload 
 app.use(fileUpload())
 // options -- { useTempFiles : true,tempFileDir : '/tmp/' }
+
+// 
+Nodemailer.sendMail({to: 'harsh_11913052@nitkkr.ac.in'})
+
 
 // specify all routers here
 const userRoute = require('./api/routes/User')
