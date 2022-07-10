@@ -20,10 +20,12 @@ exports.user_register = async (req, res, next) => {
         const u = await User.findOne({ $or: [{ username: username }, { email: email }] });
         // console.error(u);         
         
-        if(u) {
+        if(u && u.email == email) {
             throw new KnownError(`User Already Exist. Please Login`, 400, "userController user_register");        
         }
-
+        if(u && u.username == username) {
+            throw new KnownError(`Username already used!`, 400, "userController user_register");        
+        }
         //Encrypt user password
         // https://www.npmjs.com/package/bcryptjs#hashs-salt-callback-progresscallback
         // https://www.loginradius.com/blog/engineering/hashing-user-passwords-using-bcryptjs/
