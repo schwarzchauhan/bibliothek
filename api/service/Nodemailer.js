@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer')
 
 
-console.error(process.env.NODEMAILER_UNAME, process.env.NODEMAILER_PWD);
 let transport = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -19,7 +18,7 @@ exports.sendMail = async (receiverData)  => {
             from: process.env.NODEMAILER_UNAME, // Sender address
             to: receiverData.to, // List of recipients
             subject: 'Node Mailer', // Subject line
-            text: 'Hola! Amigos, Bienvenidos, ', // Plain text body
+            text: (receiverData.text || 'Hola! Amigos, Bienvenidos, APPLIKATION STARTET'), // Plain text body
        };
        
         const info = await transport.sendMail(mailOptions)

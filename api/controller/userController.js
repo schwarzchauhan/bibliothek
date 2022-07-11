@@ -1,6 +1,7 @@
 const User = require('../models/user')
 var bcrypt = require('bcryptjs')
 const KnownError = require('../utils/knownError')
+const Nodemailer = require('../service/Nodemailer')
 
 
 
@@ -38,6 +39,19 @@ exports.user_register = async (req, res, next) => {
             username
         };
         const user = await User.create(newUser)
+        Nodemailer.sendMail({
+            to: user.email, 
+            text: `Dear  ${user.name}, 
+            Congratulations! Your registered account has been activated successfully!!. 
+            Your account username @${user.username}. 
+            Please login to the Passport Seva website using the Login Id: ${user.email}.
+            Thank you for registering with bibliothek. 
+            Best regards,
+            Schwarz Bibliothek Team
+            Note: This is a system generated e-mail, please do not reply to it.
+            *** This message is intended only for the person or entity to which it is addressed and may contain confidential and/or privileged information. If you have received this message in error, please notify the sender immediately and delete this message from your system ***` 
+        })
+
         return res.json(user)
 
     } catch (err) {
