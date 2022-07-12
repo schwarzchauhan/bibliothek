@@ -1,6 +1,7 @@
 const User = require('../models/user')
 var bcrypt = require('bcryptjs')
 const KnownError = require('../utils/knownError')
+const Nodemailer = require('../service/Nodemailer')
 
 
 
@@ -9,7 +10,7 @@ exports.user_register = async (req, res, next) => {
 
     try {
         // console.error('req.body', req.body);
-        const { email, password } = req.body;
+        const { email, password, name, username } = req.body;
         // console.error(email, password);
     
         // check for mandatory field
@@ -17,24 +18,41 @@ exports.user_register = async (req, res, next) => {
             throw new KnownError("Credentials missing", 400, "userController user_register");
         }
         
-        const u = await User.findOne({email : email});   
+        const u = await User.findOne({ $or: [{ username: username }, { email: email }] });
         // console.error(u);         
         
-        if(u){
+        if(u && u.email == email) {
             throw new KnownError(`User Already Exist. Please Login`, 400, "userController user_register");        
-        }else {
-            //Encrypt user password
-            // https://www.npmjs.com/package/bcryptjs#hashs-salt-callback-progresscallback
-            // https://www.loginradius.com/blog/engineering/hashing-user-passwords-using-bcryptjs/
-            var salt = await bcrypt.genSalt(10);
-            var encryptedPassword = await bcrypt.hash(password, salt);
-            const newUser = {
-                email: email,
-                password: encryptedPassword
-            };
-            const user = await User.create(newUser)
-            return res.json(user)
         }
+        if(u && u.username == username) {
+            throw new KnownError(`Username already used!`, 400, "userController user_register");        
+        }
+        //Encrypt user password
+        // https://www.npmjs.com/package/bcryptjs#hashs-salt-callback-progresscallback
+        // https://www.loginradius.com/blog/engineering/hashing-user-passwords-using-bcryptjs/
+        var salt = await bcrypt.genSalt(10);
+        var encryptedPassword = await bcrypt.hash(password, salt);
+        const newUser = {
+            email,
+            password: encryptedPassword, 
+            name,
+            username
+        };
+        const user = await User.create(newUser)
+        Nodemailer.sendMail({
+            to: user.email, 
+            text: `Dear  ${user.name}, 
+            Congratulations! Your registered account has been activated successfully!!. 
+            Your account username @${user.username}. 
+            Please login to the Passport Seva website using the Login Id: ${user.email}.
+            Thank you for registering with bibliothek. 
+            Best regards,
+            Schwarz Bibliothek Team
+            Note: This is a system generated e-mail, please do not reply to it.
+            *** This message is intended only for the person or entity to which it is addressed and may contain confidential and/or privileged information. If you have received this message in error, please notify the sender immediately and delete this message from your system ***` 
+        })
+
+        return res.json(user)
 
     } catch (err) {
         next(err);

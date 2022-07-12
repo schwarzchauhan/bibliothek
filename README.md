@@ -57,6 +57,18 @@ npm install express-handlebars --save
 iterate over array of object <https://stackoverflow.com/questions/22696886/how-to-iterate-over-array-of-objects-in-handlebars>  \
 <https://stackoverflow.com/questions/33979051/typeerror-handlebars-registerhelper-is-not-a-function>  \
 
+
+### Nodemailer
+
+NodeMailer is the most famous module used for sending and receiving emails from NodeJS applications. It is a zero dependency module for your NodeJS apps.
+You can easily send emails as plain text, HTML, or attachments (image, document, etc.).
+
+> Use app password is sending mmail using gmail account 
+
+<https://stackoverflow.com/questions/59188483/error-invalid-login-535-5-7-8-username-and-password-not-accepted>
+
+
+
 ## scripts
 to run scripts in scripts folder 
 replace `<password>` by your mongodb password 
@@ -270,5 +282,6 @@ response -->
 
 ## API(app. pgmming. interface)
 
+`POST user/register`
 `POST /api/mcq/save` : to save the mcq  \
 `POST /upload/img` : to upload img to cloud & save imgUrl in user collection   \
