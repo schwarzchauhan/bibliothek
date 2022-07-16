@@ -96,8 +96,8 @@ https://getbootstrap.com/docs/5.0/content/tables/
 
 ## routes 
 
-`GET /quiz/:lang/:noOfMcqs` - get random mcq for quiz
-`POST /quiz/submit` - to submit mcq choies selected in the quiz
+`GET /quiz/:lang/:noOfMcqs` - get random mcq for quiz  \
+`POST /quiz/submit` - to submit mcq choies selected in the quiz  \
 [
     {
         "_id": "628455c95e36d0e7f63276c7",
@@ -282,6 +282,10 @@ response -->
 
 ## API(app. pgmming. interface)
 
-`POST user/register`
+`POST user/register`  \
+![email received to newly registered user]()
+
 `POST /api/mcq/save` : to save the mcq  \
 `POST /upload/img` : to upload img to cloud & save imgUrl in user collection   \
+
+`GET /flagge` : to get details for flag  \
