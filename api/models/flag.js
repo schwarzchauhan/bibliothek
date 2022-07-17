@@ -28,7 +28,6 @@ const flagSchema = new Schema({
 flagSchema.statics.getFlags = async function () {
     try {
         var flags  = await this.find({})
-        console.error('flags', flags);
 
         return flags;
     } catch (err) {
