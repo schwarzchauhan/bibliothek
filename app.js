@@ -7,7 +7,7 @@ const exphbs = require('express-handlebars')
 const fileUpload = require('express-fileupload');
 const errorController = require('./api/controller/errorController')
 const Nodemailer = require('./api/service/Nodemailer')
-const {readStats, dumpStats} = require('./api/service/apiStats');
+const { apiCount } = require('./api/middleware/apiStats')
 
 // db setup
 const mongoose = require('mongoose')
@@ -75,15 +75,7 @@ const routeWithoutAuth = require('./api/routes/RouteWithoutAuth')
 const auth = require('./api/middleware/auth')
 
 
-app.use((req, res, next) => {
-    res.on('finish', () => {
-        const stats = readStats()
-        const event = `${req.method} ${req.originalUrl} ${res.statusCode}`
-        stats[event] = stats[event] ? stats[event] + 1 : 1
-        dumpStats(stats)
-    })
-    next()
- })
+app.use(apiCount)
 app.use('/api', routeWithoutAuth)
 app.use('/api/user', auth, userRoute)
 app.use('/api', auth, someRoutes)
