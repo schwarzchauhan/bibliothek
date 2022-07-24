@@ -20,6 +20,10 @@ const flagSchema = new Schema({
     land: {
         type: String, 
         required: [true, 'language required']
+    }, 
+    country : {
+       type: String, 
+       required: [true, 'country name in english required'] 
     }
 })
 
