@@ -282,6 +282,8 @@ response -->
 
 ## API(app. pgmming. interface)
 
+> Routes w/o auth are in RouteWithoutAuth.js file
+
 `POST user/register`  \
 ![email received to newly registered user]()
 

@@ -39,7 +39,7 @@ exports.user_register = async (req, res, next) => {
             username
         };
         const user = await User.create(newUser)
-        Nodemailer.sendMail({
+        await Nodemailer.sendMail({
             to: user.email, 
             text: `Dear  ${user.name}, 
             Congratulations! Your registered account has been activated successfully!!. 

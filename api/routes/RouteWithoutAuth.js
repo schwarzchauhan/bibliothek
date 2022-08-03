@@ -15,4 +15,8 @@ router
     .route('/flagge')
     .get(deController.getFlags)
 
+router
+    .route('/search/country')
+    .post(deController.getFlgsByStringSrch)
+
 module.exports = router

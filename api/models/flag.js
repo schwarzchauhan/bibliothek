@@ -20,6 +20,10 @@ const flagSchema = new Schema({
     land: {
         type: String, 
         required: [true, 'language required']
+    }, 
+    country : {
+       type: String, 
+       required: [true, 'country name in english required'] 
     }
 })
 
@@ -28,7 +32,6 @@ const flagSchema = new Schema({
 flagSchema.statics.getFlags = async function () {
     try {
         var flags  = await this.find({})
-        console.error('flags', flags);
 
         return flags;
     } catch (err) {
